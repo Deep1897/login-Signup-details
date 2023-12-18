@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+  <%- include('./navbar.ejs') -%>
+    <div style="text-align: center;">
+        <h1>Information of employee</h1>
+    </div>
+    
+     <div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">fullname</th>
+            <th scope="col">email</th>
+            <th scope="col">password</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% if(record.length > 0){ %>
+              <% record.forEach(function(e){ %>
+                <tr>
+                    <td><%= e.fullname %></td>
+                    <td><%= e.email %></td>
+                    <td><%= e.password %></td>
+                    <td><button style="background-color: greenyellow;color: white;
+                    border: 1px solid white;
+                    border-radius: 5px;
+
+
+                    "
+                    onclick="edit('<%= e._id %>')" > Edit</button></td>
+                    <td>
+                      <form action="/delete/<%= e._id %>?_method=DELETE" method="delete">
+                        <button style="background-color: red;color: white;border: 1px solid white;border-radius: 5px;">  Delete</button></td>
+                        </form>
+
+                      
+                </tr>
+                <!-- <a href="/edit/<%= e.id %>"></a>  -->
+
+              <% }) %>                                                
+            <% } %>
+          
+          
+          
+        </tbody>
+      </table>
+    </div>
+</body>
+<script>
+  function edit(val){
+    window.location.href=`/edit/${val}`
+  }
+</script>
+</html>
